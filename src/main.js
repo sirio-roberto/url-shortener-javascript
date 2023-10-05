@@ -9,23 +9,11 @@ createBtn.addEventListener("click", () => {
   if (isValidUrl(input)) {
     removeErrorMsg();
 
-    let clicks = 0;
-
-    const span = document.createElement("span");
-    span.innerText = `Clicks: ${clicks}`;
-
-    const link = document.createElement("a");
-    link["target"] = "_blank";
-    link["href"] = input;
-    link.innerText = `localhost/${getRandomString(shorterUrlLength)}`;
+    const link = createLink(input);
+    const span = createCountingSpan(link);
 
     const listItem = document.createElement("li");
-    listItem.innerHTML = `${link.outerHTML} - ${input} - ${span.outerHTML}`;
-
-    listItem.addEventListener("click", (e) => {
-      span.innerText = `Clicks: ${++clicks}`
-      listItem.innerHTML = `${link.outerHTML} - ${input} - ${span.outerHTML}`;
-    });
+    listItem.append(link, ` - ${input} - `, span);
 
     urlList.append(listItem);
   } else {
@@ -42,7 +30,7 @@ function getRandomInteger(limit) {
 }
 
 function getRandomString(length) {
-  const possibleChars = "abcdefghijklmnopqrstuwxyz0123456789";
+  const possibleChars = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
   for (let i = 0; i < length; i++) {
     result += possibleChars.charAt(getRandomInteger(possibleChars.length));
@@ -62,4 +50,25 @@ function removeErrorMsg() {
   if (errorParagraph) {
     errorParagraph.remove();
   }
+}
+
+function createLink(href) {
+  const link = document.createElement("a");
+  link["target"] = "_blank";
+  link["href"] = href;
+  link.innerText = `localhost/${getRandomString(shorterUrlLength)}`;
+
+  return link;
+}
+
+function createCountingSpan(link) {
+  let clicks = 0;
+  const span = document.createElement("span");
+  span.innerText = `Clicks: ${clicks}`;
+
+  link.addEventListener("click", () => {
+    span.innerText = `Clicks: ${++clicks}`
+  });
+
+  return span;
 }
