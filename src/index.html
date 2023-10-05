@@ -3,14 +3,18 @@
 <head>
     <meta charset="utf-8">
     <title>URL Shortener</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <h1>URL Shortener</h1>
     <input type="text" id="input-url" placeholder="Enter a url">
-    <button type="button" value="Create" id="button-create">Create</button>
-    <button type="button" value="Delete" id="button-delete">Delete</button>
-    <ol id="list-url"></ol>
+    <div id="main-container">
+        <button type="button" value="Create" id="button-create">Create</button>
+        <button type="button" value="Delete" id="button-delete">Delete</button>
+        <ol id="list-url">
 
+        </ol>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
