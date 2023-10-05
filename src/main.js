@@ -9,6 +9,14 @@ const urlList = document.getElementById("list-url");
 deleteBtn.addEventListener("click", () => {
   if (urlInput.value === "") {
     urlList.innerHTML = "";
+  } else {
+    const items = urlList.children;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].innerHTML.includes(urlInput.value)) {
+        items[i].remove();
+        i--;
+      }
+    }
   }
 });
 
