@@ -21,15 +21,16 @@ deleteBtn.addEventListener("click", () => {
 });
 
 createBtn.addEventListener("click", () => {
-  const input = urlInput.value;
-  if (isValidUrl(input)) {
+  const href = urlInput.value;
+  if (isValidUrl(href)) {
     removeErrorMsg();
 
-    const link = createLink(input);
+    const link = createLink(href);
     const span = createCountingSpan(link);
-
     const listItem = document.createElement("li");
-    listItem.append(link, ` - ${input} - `, span);
+    const editButton = createEditButton(link, listItem);
+
+    listItem.append(link, ` - ${href} - `, span, editButton);
 
     urlList.append(listItem);
   } else {
@@ -87,4 +88,29 @@ function createCountingSpan(link) {
   });
 
   return span;
+}
+
+function createEditButton(link, item) {
+  const button = document.createElement("button");
+  button.innerText = "Edit";
+
+  button.addEventListener("click", () => {
+    if (button.innerText === "Edit") {
+      button.innerText = "Save";
+
+      const inputLink = document.createElement("input");
+      inputLink["id"] = "input-link";
+
+      inputLink.value = link.innerText.substring("localhost/".length);
+      link.replaceWith(inputLink);
+    } else {
+      button.innerText = "Edit";
+
+      const inputLink = document.getElementById("input-link");
+      link.innerText = "localhost/" + inputLink.value;
+
+      inputLink.replaceWith(link);
+    }
+  })
+  return button;
 }
