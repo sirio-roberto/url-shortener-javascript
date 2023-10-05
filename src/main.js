@@ -7,6 +7,8 @@ const urlList = document.getElementById("list-url");
 createBtn.addEventListener("click", () => {
   const input = urlInput.value;
   if (isValidUrl(input)) {
+    removeErrorMsg();
+
     let clicks = 0;
 
     const span = document.createElement("span");
@@ -27,7 +29,7 @@ createBtn.addEventListener("click", () => {
 
     urlList.append(listItem);
   } else {
-    urlList.insertAdjacentHTML("beforebegin", "<p>Please enter a valid url</p>");
+    addErrorMsg();
   }
 });
 
@@ -46,4 +48,18 @@ function getRandomString(length) {
     result += possibleChars.charAt(getRandomInteger(possibleChars.length));
   }
   return result;
+}
+
+function addErrorMsg() {
+  const errorParagraph = document.getElementById("error-paragraph");
+  if (!errorParagraph) {
+    urlList.insertAdjacentHTML("beforebegin", "<p id='error-paragraph'>Please enter a valid url</p>");
+  }
+}
+
+function removeErrorMsg() {
+  const errorParagraph = document.getElementById("error-paragraph");
+  if (errorParagraph) {
+    errorParagraph.remove();
+  }
 }
