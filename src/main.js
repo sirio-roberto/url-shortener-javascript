@@ -2,7 +2,15 @@ const shorterUrlLength = 5;
 
 const urlInput = document.getElementById("input-url");
 const createBtn = document.getElementById("button-create");
+const deleteBtn = document.getElementById("button-delete");
 const urlList = document.getElementById("list-url");
+
+
+deleteBtn.addEventListener("click", () => {
+  if (urlInput.value === "") {
+    urlList.innerHTML = "";
+  }
+});
 
 createBtn.addEventListener("click", () => {
   const input = urlInput.value;
